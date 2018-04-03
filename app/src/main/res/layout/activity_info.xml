@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/info"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:text="Le but : \nl'objectif du jeux est de deviner le mot que l'appareil a choisi au hasard. \nRègles du jeux :\nVous devez insérer un mot de 4 lettres ,le mot que vous avez saisis doit etre un mot francais valide et ne doit pas contenir une répétition de lettre ,vous possédez 15 chances. \nSignification :\nA: si une lettre dans votre mot correspond à la lettre dans le mot à deviner, y compris sa position.\nB: si une lettre dans votre mot correspond à la lettre dans le mot à deviner, mais il est dans une mauvaise position. \nCaractère spéciaux :\né=ê=è=ë=>e.\nâ=à=>a.\nô=>o.\nû=>u.\nî=ï=>i.\nç=>c. "
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/textView2"
+        android:textSize="19dp"
+        android:textColor="@android:color/black"
+        android:layout_alignParentTop="true" />
+
+    <Button
+        android:text="Retour"
+        android:background="@drawable/vita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/button" />
+</RelativeLayout>
+    </ScrollView>
