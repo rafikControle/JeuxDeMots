@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView score;
     SharedPreferences sf;
     public static final String pref = "pref";
-    public static final String sco = "sco";
+    public static final String scoreSh = "score";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,26 +30,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         play.setOnClickListener(this);
         info.setOnClickListener(this);
-        if (sf.contains(sco)){
-            score.setText(sf.getString(sco,null));
+        if (sf.contains(scoreSh)){
+            score.setText(sf.getString(scoreSh,null));
         }
 
     }
 
     @Override
     public void onClick(View v) {
-        //MediaPlayer mp = MediaPlayer.create(Login.this,R.raw.button);
-        //mp.start();
         if (v.getId() == R.id.play) {
             Intent i = new Intent(MainActivity.this,Game.class);
-            i.putExtra("soor",score.getText().toString());
-
+            i.putExtra("score",score.getText().toString());
 
             startActivity(i);
             finish();
 
-        }
-        if (v.getId() == R.id.info) {
+        }else if (v.getId() == R.id.info) {
             Intent i = new Intent(MainActivity.this,Info.class);
 
             startActivity(i);

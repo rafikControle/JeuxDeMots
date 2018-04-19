@@ -5,13 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,26 +17,25 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-import static com.example.suzane.test.MainActivity.sco;
 
 public class Game extends AppCompatActivity implements View.OnClickListener {
-    Button ck;
-    Button aide;
-    TextView tv2;
-    TextView tv3;
+    Button bVerif;
+    Button bAide;
+    TextView textViewN;
+    TextView textViewMots;
     SharedPreferences sf;
     public static final String pref = "pref";
-    public static final String score = "score";
-    TextView tv4;
-    TextView tv5;
-    EditText et;
+    public static final String scoreSh = "score";
+    TextView textViewA;
+    TextView textViewB;
+    EditText editTextMot;
     int i=0;
     int r;
     int z;
-    String oo;
+    String score;
     String ex;
     String deviner;
-int trou;//A
+    int trou;//A
     int pou;//B
     String a;
 
@@ -46,9 +43,8 @@ int trou;//A
     String b1;
     String b2;
     String b3;
-
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    String dictionaire[] = {"aboi","abot","abri","abus","aces","acme","acne","acon","acre","acte","adne","ados","afin","afro","agio","agir","agis","agit","agui","agit","aide","aide","aies","aigu","aile","ails","aile","aime"
+    
+    String dictionaire[] = {"aboi","abot","abri","abus","aces","acme","acne","acon","acre","acte","adne","ados","afin","afro","agio","agir","agis","agit","agui","agit","bAide","bAide","aies","aigu","aile","ails","aile","aime"
             ,"aime","aine","aire","airs","aire","aise","aisy","aise","ales","aloi","alpe","alto","alun","amen","amer","amie","amis","amui","ange","anis","anse","anse",
             "ante","anus","aout","apex","apis","apte","arcs","ardt","ardu","arec","ares","arme","arme","arts","arum","aspe","asti","aube","auge","aune","auto","avec","aven","aveu","avez","avis","axer","axes","axez","axis","axes","ayez","azur","aine","acre","ages","ages","ames","anes","apre","atre","bacs","baie","bail","bain","bais",
             "bals","banc","bang","bans","bard","barn","bars","base","base","bath","bats","baud","baux","bave","bave","baye","baye","beau","becs","bers","beur","beys","bics"
@@ -94,13 +90,7 @@ int trou;//A
             ,"type","tzar","tenu","tole","ubac","ulve","unes","unie","unir","unis","unit","unit","upas","ures","urge","urge","urne","usai","user","usez","usat","uval","vagi ","vain","vair","vais","vals","valu","vamp","vans","vape","vars","vase","vaut","vaux","veau","veld","velu","vend","vent","venu","vers","vert","veto","veuf","veut","veux","vexa","vice","vida","vide","vide","vies","vifs","vile","vils","vina",
             "vine","vins","vint","vine","vioc","viol","vira","vire","vire","visa","vise","vise","vite","vlan","voeu","voie","voir","vois","voit","voix","vola","vole","vols"
             ,"volt","vole","vomi","vont","vota","vote","vote","voua","voue","vous","voue","vrac","vrai","vues","vecu","velo","vela","vets","vetu","vint","whig","zain","zani ","zend","ziba","zibe","zibe","zigs","zinc","zona","zone","zone","zebu","zero","zeta","yack","yaks","yang","yard","yens","yeux","yoga","yogi","yole"};
-
-
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,18 +98,18 @@ int trou;//A
         setContentView(R.layout.activity_game);
 
         Intent intent = getIntent();
-        oo = intent.getStringExtra("soor");
+        score = intent.getStringExtra("score");
 
 
-        ck = (Button) findViewById(R.id.ck);
-        aide = (Button) findViewById(R.id.aide);
-        et = (EditText) findViewById(R.id.et);
-        tv2 = (TextView) findViewById(R.id.tv2);
-        tv3 = (TextView) findViewById(R.id.tv3);
-        tv5 = (TextView) findViewById(R.id.tv5);
-        tv4 = (TextView) findViewById(R.id.tv4);
-        ck.setOnClickListener(this);
-        aide.setOnClickListener(this);
+        bVerif = (Button) findViewById(R.id.bVerif);
+        bAide = (Button) findViewById(R.id.bAide);
+        editTextMot = (EditText) findViewById(R.id.editTextMot);
+        textViewN = (TextView) findViewById(R.id.textViewN);
+        textViewMots = (TextView) findViewById(R.id.textViewMots);
+        textViewB = (TextView) findViewById(R.id.textViewB);
+        textViewA = (TextView) findViewById(R.id.textViewA);
+        bVerif.setOnClickListener(this);
+        bAide.setOnClickListener(this);
         sf = getSharedPreferences(pref, Context.MODE_PRIVATE);
 
 
@@ -133,8 +123,7 @@ int trou;//A
         //Toast.makeText(getApplicationContext(), "1111111111111", Toast.LENGTH_SHORT).show();
         int ax= dictionaire.length;
         z = 0;
-        ex = String.valueOf(ax);
-        Log.d("longeur du dictionaire", ex);
+        Log.d("longeur du dictionaire", String.valueOf(dictionaire.length));
         int j =1;
         while (j<ax){
             if (aa.equals(dictionaire[j]) ){
@@ -150,16 +139,15 @@ int trou;//A
             j++;
         }
 
-       // Toast.makeText(getApplicationContext(), String.valueOf(j), Toast.LENGTH_SHORT).show();
-// appelle a la 2 eme procedure de verification
-if (z==1){
-    turing(aa);
-}else {
-    MediaPlayer mp = MediaPlayer.create(Game.this,R.raw.incore);
-    mp.start();
-    Toast.makeText(getApplicationContext(), "Mot invalide",//existe pa dans dictionaire
-            Toast.LENGTH_SHORT).show();
-}
+ 
+    if (z==1){
+        turing(aa);
+    }else {
+        MediaPlayer mp = MediaPlayer.create(Game.this,R.raw.incore);
+        mp.start();
+        Toast.makeText(getApplicationContext(), "Mot invalide",//existe pa dans dictionaire
+                Toast.LENGTH_SHORT).show();
+    }
 
     }
 
@@ -224,7 +212,7 @@ if (z==1){
             trou=trou+1;
         }
 
-resultat(trou,pou);
+    resultat(trou,pou);
 
     }
 
@@ -233,21 +221,18 @@ resultat(trou,pou);
         String c1 = b1 + "\n"+a;
         String c2 = b2 + "\n"+String.valueOf(tro);
         String c3 = b3 + "\n"+String.valueOf(po);
-        tv2.setText(c);
-        tv3.setText(c1);
-        tv4.setText(c2);
-        tv5.setText(c3);
+        textViewN.setText(c);
+        textViewMots.setText(c1);
+        textViewA.setText(c2);
+        textViewB.setText(c3);
     }
 
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.ck) {
-            Log.d("abcd", "1");
-             a = et.getText().toString();//edit text le mot ecri
-            Log.d("abcd", "2");
-            et.setText("");
-            Log.d("abcd", "3");
+        if (v.getId() == R.id.bVerif) {
+            a = editTextMot.getText().toString();//edit text le mot ecri
+            editTextMot.setText("");
             trou=0;
             pou=0;
 
@@ -266,25 +251,25 @@ resultat(trou,pou);
                     if (i>15){
                         MediaPlayer mp = MediaPlayer.create(Game.this,R.raw.over);
                         mp.start();
-                        showErrorMessage2();
+                        showErrorMessage();
                     }else{
-             b = tv2.getText().toString();//list de num
-             b1 = tv3.getText().toString();//list de mo
-             b2 = tv4.getText().toString();//list de A
-             b3 = tv5.getText().toString();//list de B
+             b = textViewN.getText().toString();//list de num
+             b1 = textViewMots.getText().toString();//list de mo
+             b2 = textViewA.getText().toString();//list de A
+             b3 = textViewB.getText().toString();//list de B
 
 
-// voir ici si le mot inséré est le mot deviner
+            // voir ici si le mot inséré est le mot deviner
                 if (a.equals(deviner)){
-                    int zeta = Integer.parseInt(oo);
+                    int zeta = Integer.parseInt(score);
                     zeta++;
-                    oo = String.valueOf(zeta);
+                    score = String.valueOf(zeta);
                     SharedPreferences.Editor editor = sf.edit();
-                    editor.putString(sco,oo);
+                    editor.putString(scoreSh,score);
                     editor.commit();
                     MediaPlayer mp = MediaPlayer.create(Game.this,R.raw.win);
                     mp.start();
-                    showErrorMessage();
+                    showWinningMessage();
                 }else {
                     //sinon faire le test
                     test(a);
@@ -301,7 +286,7 @@ resultat(trou,pou);
             }
         }
 
-        if (v.getId() == R.id.aide) {
+        if (v.getId() == R.id.bAide) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Game.this);
             dialogBuilder.setMessage("Ceci est quelque mots de 4 lettres en Français : "+"\n"+"tige "+","+"bute "+","+"chie "+","+"noms "+","+"orna "+","+"faut "+","+"cafe "+","+"dope "+","+"nuit "+","+"aine "+","+"epar "+","+"foie "+","+
                     "gros "+"have "+","+"indu "+","+"joli "+","+
@@ -314,7 +299,7 @@ resultat(trou,pou);
 
     }
 
-    private void showErrorMessage() {
+    private void showWinningMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Game.this);
         dialogBuilder.setMessage("vous venez de trouver le mot est c'est : "+deviner);
         dialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -342,7 +327,7 @@ resultat(trou,pou);
         dialogBuilder.show();
     }
 
-    private void showErrorMessage2() {
+    private void showErrorMessage() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Game.this);
         dialogBuilder.setMessage("vous venez de perdre le mot est : "+deviner);
         dialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
